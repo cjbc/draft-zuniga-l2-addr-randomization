@@ -1,0 +1,280 @@
+
+
+
+
+Network Working Group                                         JC. Zuniga
+Internet-Draft                                                    SIGFOX
+Intended status: Informational                             CJ. Bernardos
+Expires: November 19, 2018                                          UC3M
+                                                         A. Andersdotter
+                                                               article19
+                                                            May 18, 2018
+
+
+                     Layer-2 address randomization
+                 draft-zuniga-l2-addr-randomization-00
+
+Abstract
+
+   Internet privacy is a serious concern nowadays.  Users' activity
+   leaves a vast digital footprint, communications are not always
+   properly secured and location can be easily tracked.  This document
+   focuses on this last point, which is mainly caused by the use of IEEE
+   Layer-2 immutable addresses, and the implications of that on upper
+   layers, specially on IPv6 addresses.  Randomization of the addresses
+   used at Layer-2 is a simple, but promising, solution to mitigate the
+   location privacy issues.
+
+   We report on existing support of address randomization by the
+   different operating systems, and also on the conclusions obtained
+   from conducting several trials during two IETF and one IEEE 802
+   standards meetings.  Based on the obtained results we can conclude
+   that address randomization is a feasible solution to the Layer-2
+   privacy problem, but there needs to be other mechanisms used at
+   higher layers to make the most benefit from it and minimize the
+   service disruptions it may cause.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on November 19, 2018.
+
+
+
+Zuniga, et al.          Expires November 19, 2018               [Page 1]
+
+Internet-Draft            L2 addr randomization                 May 2018
+
+
+Copyright Notice
+
+   Copyright (c) 2018 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (https://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+Table of Contents
+
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   3.  Problem statement . . . . . . . . . . . . . . . . . . . . . .   3
+   4.  Layer-2 address randomization . . . . . . . . . . . . . . . .   3
+   5.  Tools . . . . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   6.  Evaluation  . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   7.  Developments in 802 (802.11aq)  . . . . . . . . . . . . . . .   3
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
+   10. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   4
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .   4
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .   4
+     11.2.  Informative References . . . . . . . . . . . . . . . . .   4
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   4
+
+1.  Introduction
+
+   Nowadays, Internet privacy is becoming a huge concern, as more and
+   more devices are getting directly (e.g., via cellular or Wi-Fi) or
+   indirectly (e.g., via a smartphone using Bluetooth) connected to the
+   Internet.  This ubiquitous connectivity, together with not very
+   secure protocol stacks and the lack of proper education about privacy
+   make it very easy to track/monitor the location of users and/or
+   eavesdrop their activity.  This is due to many factors, such as the
+   vast digital footprint that users leave on the Internet (e.g.,
+   sharing information on social networks, cookies used by browsers and
+   servers to provide a better navigation experience, connectivity logs
+   that allow tracking of a user's Layer-2 (L2) or Layer-3 (L3) address,
+   web trackers, etc.) and/or the weak (or even null in some cases)
+   authentication and encryption mechanisms used to secure
+   communications.
+
+
+
+Zuniga, et al.          Expires November 19, 2018               [Page 2]
+
+Internet-Draft            L2 addr randomization                 May 2018
+
+
+   This privacy concern [wifi_internet_privacy] affects all layers of
+   the protocol stack, from the lower ones involved in the actual access
+   to the network (e.g., the Layer-2/Layer-3 addresses can be used to
+   obtain the location of a user) to the applications, especially when
+   browsing or using social networks (e.g., cookies can be used to find
+   out the identity of a user accessing a particular site).
+
+   This document focuses on the privacy threats at the network
+   connectivity level, namely at the Layer-2 and Layer-3 of the protocol
+   stack, but focusing especially on the issues related to the use of
+   permanent Layer-2 addresses and the potential advatages gained from
+   randomizing them.
+
+2.  Terminology
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [RFC2119].
+
+   The following terms are used in this document:
+
+      XXX:
+
+      YYY:
+
+3.  Problem statement
+
+   TBD.
+
+4.  Layer-2 address randomization
+
+   TBD.
+
+5.  Tools
+
+   TBD.
+
+6.  Evaluation
+
+   TBD.
+
+7.  Developments in 802 (802.11aq)
+
+   TBD.
+
+
+
+
+
+
+
+Zuniga, et al.          Expires November 19, 2018               [Page 3]
+
+Internet-Draft            L2 addr randomization                 May 2018
+
+
+8.  IANA Considerations
+
+   N/A.
+
+9.  Security Considerations
+
+   TBD.
+
+10.  Acknowledgments
+
+   TBD.
+
+11.  References
+
+11.1.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+11.2.  Informative References
+
+   [wifi_internet_privacy]
+              Bernardos, CJ., Zuniga, JC., and P. O'Hanlon, "Wi-Fi
+              Internet Connectivity and Privacy: Hiding your tracks on
+              the wireless Internet", Standards for Communications and
+              Networking (CSCN), 2015 IEEE Conference on , October 2015.
+
+Authors' Addresses
+
+   Juan Carlos Zuniga
+   SIGFOX
+   425 rue Jean Rostand
+   Labege  31670
+   France
+
+   Email: j.c.zuniga@ieee.org
+   URI:   http://www.sigfox.com/
+
+
+
+
+
+
+
+
+
+
+
+
+Zuniga, et al.          Expires November 19, 2018               [Page 4]
+
+Internet-Draft            L2 addr randomization                 May 2018
+
+
+   Carlos J. Bernardos
+   Universidad Carlos III de Madrid
+   Av. Universidad, 30
+   Leganes, Madrid  28911
+   Spain
+
+   Phone: +34 91624 6236
+   Email: cjbc@it.uc3m.es
+   URI:   http://www.it.uc3m.es/cjbc/
+
+
+   Amelia Andersdotter
+   article19
+
+   Email: amelia@article19.org
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Zuniga, et al.          Expires November 19, 2018               [Page 5]
