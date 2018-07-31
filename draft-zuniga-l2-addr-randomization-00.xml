@@ -86,13 +86,13 @@
 
 <!-- [2018-05-18] CJBC: Some initial text below. -->
       <t>
-Internet privacy is a serious concern nowadays. Users’ activity leaves a vast
-digital footprint, communications are not always properly secured and location
-can be easily tracked. This document focuses on this last point, which is mainly
-caused by the use of IEEE Layer-2 immutable addresses, and the implications of
-that on upper layers, specially on IPv6 addresses. Randomization of the
-addresses used at Layer-2 is a simple, but promising, solution to mitigate the
-location privacy issues.
+   Internet privacy has emerged as a serious concern.  Users' activities
+   leave a vast digital footprint, communications are not always
+   properly secured and a user's location can be easily tracked.  This document
+   focuses on the use of IEEE Layer-2 immutable addresses, a leading cause of 
+        geolocation tracking, and the implications of such tracking on upper layers, 
+        specially on IPv6 addresses.  Randomization of the addresses used at Layer-2 
+        is a simple, but promising, mitigation strategy for location privacy issues.
       </t>
 
       <t>
@@ -100,8 +100,8 @@ We report on existing support of address randomization by the different
 operating systems, and also on the conclusions obtained from conducting several
 trials during two IETF and one IEEE 802 standards meetings. Based on the
 obtained results we can conclude that address randomization is a feasible
-solution to the Layer-2 privacy problem, but there needs to be other mechanisms
-used at higher layers to make the most benefit from it and minimize the service
+mitigation strategy for Layer-2 privacy problem, but that complementary mechanisms
+are needed at higher layers to make the most benefit from it and minimize the service
 disruptions it may cause.
       </t>
 
@@ -117,11 +117,11 @@ disruptions it may cause.
 <!-- [2018-05-18] CJBC: some initial text slightly modified from our paper to
 use as starting point. -->
       <t>
-Nowadays, Internet privacy is becoming a huge concern, as more and more devices
+The privacy of internet users has quickly become a huge concern, as more and more devices
 are getting directly (e.g., via cellular or Wi-Fi) or indirectly (e.g., via a
 smartphone using Bluetooth) connected to the Internet. This ubiquitous
-connectivity, together with not very secure protocol stacks and the lack of
-proper education about privacy make it very easy to track/monitor the location
+connectivity, together with under-secured protocol stacks and a lack of
+proper education about privacy, has made it easy to track and monitor the location
 of users and/or eavesdrop their activity. This is due to many factors, such as
 the vast digital footprint that users leave on the Internet (e.g., sharing
 information on social networks, cookies used by browsers and servers to provide
@@ -187,7 +187,10 @@ TBD.
     <section anchor="sec:l2_addr_random" title="Layer-2 address randomization">
 
       <t>
-TBD.
+Layer-2 identifier-based tracking of user locations has been a known privacy issue for some time. 
+The first serious attempt att addressing the issue was seen in <xref target="ieee_1609.4_2010" />, which 
+        supposes readressing, or resetting the device MAC address to a new value, in support of
+        pseudonymity as an optional feature.
       </t>
 
     </section>
@@ -197,7 +200,9 @@ TBD.
     <section anchor="sec:tools" title="Tools">
 
       <t>
-TBD.
+Studies of the IEEE Std 1609.4 2010 re-addressing feature have proposed multipath TCP [mptcp] as a 
+effortful, but promising, mechanism for maintaining IP session connectivity across pseudonym
+changes is easier said than done [SunHanPark]
       </t>
 
     </section>
@@ -257,7 +262,14 @@ TBD.
     </references>
 
     <references title="Informative References">
-
+           <reference anchor="ieee_1609.4_10" >
+        <front>
+          <title>IEEE Standard for Wireless Access in Vehicular Environments (WAVE)— Multi-channel Operation</title>
+          <date month="February" year="2011"/>
+        </front>
+        <seriesInfo name="IEEE Std 1609.4-2010" value="" />
+      </reference>
+      
       <reference anchor="wifi_internet_privacy" >
         <front>
           <title>Wi-Fi Internet Connectivity and Privacy: Hiding your tracks on the wireless Internet</title>
