@@ -177,8 +177,34 @@ The following terms are used in this document:
     <section anchor="sec:ps" title="Problem statement">
 
         <t>
-TBD.
+        The issue of uniquely identifying individuals through their Layer-2 addresses was originally covered
+          in vehicular communications research, where concerns about the
+          disclosure of a driver's physical location were especially pronounced <xref target="buttyan2007" />.
+          Because many of the promised advantages of vehicular communications relied upon drivers being
+          comfortable with disclosing their location at regular intervals, pseudonymisation through regular
+          changes of Layer-2 addresses was discussed as a privacy enhancing feature as far back as 2007.
         </t>
+      <t>
+        Using Layer-2 addresses to uniquely identify individuals later came to be covered in less specialised
+        circumstances, such as in <xref target="cunche2013" />. There it is shown that even a passive observer using
+        cheap tools can accurately pin down individual users of connected devices under relatively few constraints.
+      </t>
+      <t>
+        By 2014 the ubiquity of public WLANs had led to the emergence of a number of new audience
+        measurement models which attracted regulatory attention, particularly in the European Union. While under
+        already existing EU norms, network operators were seen as being in a considerable position of power in 
+        relation to the end-user, therefore carrying a special duty not to collect, store or use data about the 
+        geographical location of an end-user without his or her informed consent, it had not been clarified at this
+        point that similar obligations would extend to providers of local area networks and derived services too.
+        However, both the Swedish Data Protection Authority and the Dutch Data Protection Authority would go on to issue injunctions
+        against non-consensual collection of Layer-2 addresses from end-user devices (<xref target="di2015" />, 
+        <xref target="ap2015" />), on the justification that end-users have the right to geolocational privacy. 
+      </t>
+      <t>
+        While later research efforts have proceeded to demonstrate a range of other effective tracking mechanisms
+        against users of wireless local area networks (see e.g. <xref target="matte2016" />, <xref target="vanhoef2016" /> and
+        <xref target="martin2017" />), we do not believe this should distract from solutions to the Layer-2 addresses problem.
+      </t>
 
     </section>
 <!-- END Problem statement -->
@@ -187,10 +213,29 @@ TBD.
     <section anchor="sec:l2_addr_random" title="Layer-2 address randomization">
 
       <t>
-Layer-2 identifier-based tracking of user locations has been a known privacy issue for some time. 
-The first serious attempt att addressing the issue was seen in <xref target="ieee_1609.4_2010" />, which 
+The first serious attempt at addressing the issue of persistent Layer-2 addresses was seen in <xref target="ieee_1609.4_2010" />, which 
         supposes readressing, or resetting the device MAC address to a new value, in support of
-        pseudonymity as an optional feature.
+        pseudonymity as an optional feature. In vehicular communications, privacy protections go even further
+        by proposing higher level addresses, such as IP addresses, are also changed after some time.
+      </t>
+      <t>
+        Later efforts include the introduction of Layer-2 addresses 
+        randomisation feature in mobile operation systems, starting in 2014. While implementation is patchy, and
+        not all mobile operating systems have this privacy protection mechanism turned on by default, in theory
+        the vast majority of mobile operating system users around the world have an opportunity to increase their
+        privacy protection by finding the right setting in their management interface.
+      <t>By 2017, the IEEE 802 LMSC had started work on a built-in 802.11 network MAC randomization feature. 
+        It was adopted as a standard in June 2018 <xref target="ieee_802.11aq" />, and pending approval by the 
+        Wi-Fi Alliance may be shipped as a built-in privacy-enhancing feature in future generations of WiFi chips.
+      </t>
+      <t>
+        In associations where private persons are directly interfacing a network provider, such as
+        when they are connected through a personal device like a phone or laptop, it is likely that many different 
+        options for Layer-2 addresses randomization will be available for the private person, at least if they remain unassociated.
+      </t>
+      <t>
+        In other situations, where private persons are interacting with IoT devices (cars, etc), it is more
+        likely that they will remain dependent on the properly implemented built-in privacy mechanisms.
       </t>
 
     </section>
@@ -200,9 +245,7 @@ The first serious attempt att addressing the issue was seen in <xref target="iee
     <section anchor="sec:tools" title="Tools">
 
       <t>
-Studies of the IEEE Std 1609.4 2010 re-addressing feature have proposed multipath TCP [mptcp] as a 
-effortful, but promising, mechanism for maintaining IP session connectivity across pseudonym
-changes is easier said than done [SunHanPark]
+TBD
       </t>
 
     </section>
@@ -212,21 +255,22 @@ changes is easier said than done [SunHanPark]
     <section anchor="sec:eval" title="Evaluation">
 
       <t>
-TBD.
+Layer-2 addresses randomization, or the alteration of the Layer-2 addresses at irregular intervals, is 
+        recognised as a data minimization technique [RFC6973]. Though a number of research efforts have 
+        proceeded to demonstrate a range of other effective tracking mechanisms
+        against users of wireless local area networks (see e.g. <xref target="matte2016" />, 
+        <xref target="vanhoef2016" /> ), we do not believe this should distract from solutions 
+        to the Layer-2 addresses problem. It has further been proposed that in spite of Layer-2 address randomization
+        mechanisms being implemented, they are often not used or are implemented in such a way 
+        that the randomization is effective <xref target="martin2017" />.
+      </t>
+      <t>
+        This suggests a continued need for improvement, and the recently adopted 802.11 enhancements may be
+        helpful in this regard.
       </t>
 
     </section>
 <!-- END Evaluation -->
-
-<!-- BEGIN Developments in 802 (802.11aq) -->
-    <section anchor="sec:developments" title="Developments in 802 (802.11aq)">
-
-      <t>
-TBD.
-      </t>
-
-    </section>
-<!-- END  -->
 
     <section anchor="IANA" title="IANA Considerations">
 
@@ -259,15 +303,106 @@ TBD.
 
     <references title="Normative References">
       &rfc2119;
+      &rfc6973;
     </references>
 
     <references title="Informative References">
-           <reference anchor="ieee_1609.4_10" >
+       
+      
+      <reference anchor="martin2017" >
+        <front>
+          <title>A Study of MAC Address Randomization in Mobile Devices and When it Fails</title>
+           <author initials="JM." surname="Marin" fullname="Jeremy Martin"></author>
+           <author initials="TM." surname="Mayberry" fullname="Trevis Mayberry"></author>
+           <author initials="CD." surname="Donahue" fullname="Collin Donahue"></author>
+           <author initials="LF." surname="Foppe" fullname="Lucas Foppe"></author>
+           <author initials="LB." surname="Brown" fullname="Lamont Brown"></author>
+           <author initials="CR." surname="Riggins" fullname="Chadwick Riggins"></author>
+           <author initials="ECR." surname="Rye" fullname="Erik C. Rye"></author>
+           <author initials="DB." surname="Brown" fullname="Dane Brown"></author>
+          <date month="March" year="2017"/>
+        </front>
+        <seriesInfo name="arxiv1703.02874" value="" />
+      </reference>
+                  
+      <reference anchor="ap2015" >
+        <front>
+          <title>Wifi-tracking van mobiele apparaten in en rond winkels door Bluetrace</title>
+          <author fullname="College Bescherming Persoongegevens"></author>
+          <date month="October" year="2015"/>
+        </front>
+        <seriesInfo name="Autoriteit Persoongegevens, z2014-00944." value="" />
+      </reference>
+
+      <reference anchor="buttyan2007" >
+        <front>
+          <title>On the Effectiveness of Changing Pseudonyms to Provide Location Privacy in VANETs</title>
+          <author initials="LB." surname="Buttyán" fullname="Levente Buttyán"></author>
+          <author initials="TH." surname="Holczer" fullname="Tamás Holczer"></author>
+          <author initials="IV." surname="Vajda" fullname="István Bajda"></author>
+          <date month="July" year="2007"/>
+        </front>
+        <seriesInfo name="(SEVECOM) in F. Stajano et al. (Eds.): ESAS 2007, LNCS 4572, pp. 129–141, 2007." value="" />
+      </reference>
+
+      <reference anchor="cunche2013" >
+        <front>
+          <title>I know your MAC Address: Targeted tracking of individual using Wi-Fi</title>
+          <author initials="MC." surname="Cunche" fullname="Mathieu Cunche"></author>
+          <date month="October" year="2013"/>
+        </front>
+        <seriesInfo name=" International Symposium on Research in Grey-Hat Hacking - GreHack, Nov 2013, Grenoble, France. 2013." value="" />
+      </reference>
+
+      <reference anchor="di2015" >
+        <front>
+          <title>Tillsyn enligt personuppgiftslagen (1998:204) av Västerås Citysamverkan AB</title>
+          <author fullname="Datainspektionen"></author>
+          <date month="October" year="2015"/>
+        </front>
+        <seriesInfo name="Datainspektionen Dnr 1702-2015." value="" />
+      </reference>
+      
+      <reference anchor="ieee_1609.4_10" >
         <front>
           <title>IEEE Standard for Wireless Access in Vehicular Environments (WAVE)— Multi-channel Operation</title>
           <date month="February" year="2011"/>
         </front>
         <seriesInfo name="IEEE Std 1609.4-2010" value="" />
+      </reference>
+
+      <reference anchor="ieee_802.11aq" >
+        <front>
+          <title>Part 11: Wireless LAN Medium Access Control (MAC) and Physical Layer (PHY) Specifications. 
+            Amendment 3: Pre-Association Discovery (still unpublished)</title>
+          <date month="June" year="2018"/>
+        </front>
+        <seriesInfo name="IEEE Std 802.11aq" value="" />
+      </reference>
+
+      <reference anchor="matte2016" >
+        <front>
+          <title>Defeating MAC Address Randomization Through Timing Attacks</title>
+          <author initials="CM." surname="Matte" fullname="Célestin Matte"></author>
+          <author initials="MC." surname="Cunche" fullname="Mathieu Cunche"></author>
+          <author initials="FR." surname="Rousseau" fullname="Franck Rosseau"></author>
+          <author initials="MV." surname="Cunche" fullname="Mathy Vanhoef"></author>
+          <date month="July" year="2016"/>
+        </front>
+        <seriesInfo name="WiSec’16, July 18-22, 2016, Darmstadt, Germany." value="" />
+      </reference>
+    
+      <reference anchor="vanhoef2016" >
+        <front>
+          <title>Why MAC Address Randomization is not Enough: An Analysis of Wi-Fi Network Discovery Mechanisms</title>
+          <author initials="MV." surname="Cunche" fullname="Mathy Vanhoef"></author>
+          <author initials="CM." surname="Matte" fullname="Célestin Matte"></author>
+          <author initials="MC." surname="Cunche" fullname="Mathieu Cunche"></author>
+          <author initials="LSC." surname="Cardoso" fullname="Leonardo S. Cardoso"></author>
+          <author initials="FP." surname="Piessens" fullname="Frank Piessens"></author>
+          <date month="May" year="2016"/>
+        </front>
+        <seriesInfo name="ASIA CCS ’16, May 30-June 03, 2016, Xi’an, China." value="" />
       </reference>
       
       <reference anchor="wifi_internet_privacy" >
