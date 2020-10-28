@@ -1,1 +1,1 @@
-# draft-zuniga-l2-addr-randomization
+# draft-zuniga-mac-address-randomization
