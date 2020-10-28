@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+
+  <!ENTITY rfc2119 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
+
+]>
+
+<?rfc toc="yes"?>
+<?rfc tocompact="yes"?>
+<?rfc tocdepth="3"?>
+<?rfc tocindent="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc comments="yes"?>
+<?rfc inline="yes"?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+
+<rfc category="info" docName="draft-zuniga-mac-address-randomization-00"
+     ipr="trust200902">
+  <front>
+      <title abbrev="MAC address randomization">
+       MAC address randomization
+      </title>
+
+    <!-- AUTHORS -->
+    <author fullname="Juan Carlos Zuniga"
+            initials="JC."
+            surname="Zuniga">
+      <organization abbrev="SIGFOX">
+        SIGFOX
+      </organization>
+      <address>
+        <postal>
+          <street>425 rue Jean Rostand</street>
+          <city>Labege</city>
+          <code> 31670</code>
+          <country>France</country>
+        </postal>
+        <email>j.c.zuniga@ieee.org</email>
+        <uri>http://www.sigfox.com/</uri>
+      </address>
+    </author>
+
+    <author fullname="Carlos J. Bernardos"
+            initials="CJ."
+            surname="Bernardos">
+      <organization abbrev="UC3M">
+        Universidad Carlos III de Madrid
+      </organization>
+      <address>
+        <postal>
+          <street>Av. Universidad, 30</street>
+          <city>Leganes, Madrid</city>
+          <code>28911</code>
+          <country>Spain</country>
+        </postal>
+        <phone>+34 91624 6236</phone>
+        <email>cjbc@it.uc3m.es</email>
+        <uri>http://www.it.uc3m.es/cjbc/</uri>
+      </address>
+    </author>
+
+<!-- Amelia: please correct and complete below -->
+    <author fullname="Amelia Andersdotter"
+            initials="A."
+            surname="Andersdotter">
+      <organization abbrev="article19">
+        article19
+      </organization>
+      <address>
+        <email>amelia@article19.org</email>
+      </address>
+    </author>
+
+    <date month="October" year="2020" />
+
+    <area>Internet</area>
+
+<!--
+    <workgroup>INTAREA</workgroup>
+-->
+
+    <abstract>
+
+      <t>
+Internet privacy has become a major concern over the past few years.  
+Users are becoming more aware that their online activity  leaves a vast digital footprint, 
+that communications are not always properly secured, and that their location and actions 
+can be easily tracked. One of the main factors for the location tracking issue is the 
+wide use of long-lasting identifiers, such as MAC addresses. 
+
+      </t>
+
+      <t>
+There have been several initiatives at the IETF and the IEEE 802 standards committees to 
+overcome some of these privacy issues. This document provides an overview of these activities, 
+with the intention to inform the technical community about them, and help coordinate between 
+present and futures standardization activities.
+      </t>
+
+    </abstract>
+
+  </front>
+
+  <middle>
+
+<!-- BEGIN Terminology -->
+    <section anchor="sec:introduction" title="Introduction">
+
+<!-- [2018-05-18] CJBC: some initial text slightly modified from our paper to
+use as starting point. -->
+      <t>
+Internet privacy is becoming a huge concern, as more and more mobile devices
+are getting directly (e.g., via cellular or Wi-Fi) or indirectly (e.g., via a
+smartphone using Bluetooth) connected to the Internet. This ubiquitous
+connectivity, together with not very secure protocol stacks and the lack of
+proper education about privacy make it very easy to track/monitor the location
+of users and/or eavesdrop their physical and online activities. This is due to many factors, such as
+the vast digital footprint that users leave on the Internet, for instance sharing
+information on social networks, cookies used by browsers and servers to provide
+a better navigation experience, connectivity logs that allow tracking of a
+user’s Layer-2 (L2/MAC) or Layer-3 (L3) address, web trackers, etc.; and/or the weak
+(or even null in some cases) authentication and encryption mechanisms used to
+secure communications.
+      </t>
+
+      <t>
+This privacy concern affects all layers of the protocol stack, from the lower layers 
+involved in the actual access to the network (e.g., the MAC/Layer-2 and Layer-3 addresses 
+can be used to obtain the location of a user) to higher layer protocol identifiers and 
+user applications <xref target="wifi_internet_privacy" />. In particular, IEEE 802 MAC 
+addresses have historically been an easy target for tracking users [REF to some tracking cases].
+      </t>
+
+      <t>
+There have been several initiatives at the IETF and the IEEE 802 standards committees 
+to overcome some of these privacy issues. This document provides an overview of these 
+activities, with the intention to inform the community and help coordinate between 
+present and futures standardization activities.
+      </t>
+
+    </section>
+
+    <section anchor="sec:terminology" title="Terminology">
+
+      <t>
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+"SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
+interpreted as described in <xref target="RFC2119" />.
+      </t>
+
+      <t>
+The following terms are used in this document:
+
+        <list style="empty">
+
+          <t>MAC: Medium Access Control</t>
+
+        </list>
+
+      </t>
+
+    </section>
+<!-- END Terminology -->
+
+<!-- BEGIN Problem statement -->
+    <section anchor="sec:background" title="Background – MAC address usage">
+
+        <t>
+Most mobile devices used today are Wi-Fi enabled (i.e. they are equipped with an 
+IEEE 802.11 wireless interface). Wi-Fi interfaces, as any other kind of IEEE 802-based 
+network interface, like Ethernet (i.e. IEEE 802.3) have a Layer-2 address also referred 
+to as MAC address, which can be seen by anybody who can receive the signal transmitted by 
+the network interface. The format of these addresses is shown in Figure 1. 
+        </t>
+
+        <t>
+		Figure 1: IEEE 802 MAC Address Format
+        </t>		
+
+
+        <t>
+MAC addresses can either be universally administered or locally administered. Universally 
+administered and locally administered addresses are distinguished by setting the 
+second-least-significant bit of the most significant byte of the address (the U/L bit).
+        </t>
+
+        <t>
+A universally administered address is uniquely assigned to a device by its manufacturer. 
+Most physical devices are provided with a universally administered address, which is composed 
+of two parts: (i) the Organizationally Unique Identifier (OUI), which are the first 
+three octets in transmission order and identify the organization that issued the identifier, 
+and (ii) Network Interface Controller (NIC) Specific, which are the following three octets, 
+assigned by the organization that manufactured the NIC, in such a way that the resulting 
+MAC address is globally unique. 
+        </t>
+		
+		<t>
+Locally administered addresses override the burned-in address, and they are usually set-up 
+by the network administrator. However, as explained in further sections of this document, 
+there are new initiatives at the IEEE 802 to specify ways in which these locally administered 
+addresses should be assigned, depending on the use case.		
+        </t>
+
+    </section>
+<!-- END Problem statement -->
+
+<!-- BEGIN MAC address randomization -->
+    <section anchor="sec:mac_addr_random" title="MAC address randomization">
+
+      <t>
+Since universally administered MAC addresses are by definition globally-unique, when a device 
+uses this MAC address to transmit data -especially over the air- it is relatively easy to track 
+this device by simple medium observation. Since a device is usually directly associated to an 
+individual, this poses a privacy concern <xref target="link_layer_privacy" />.
+      </t>
+
+      <t>
+MAC addresses can be easily observed by a third party, such as a passive device listening to 
+communications in the same network. In an 802.11 network, a station exposes its MAC address in 
+two different situations:	  
+      </t>
+
+<t><list style="symbols">
+	  <t>
+While actively scanning for available networks, the MAC address is used in the Probe Request 
+frames sent by the device (aka IEEE 802.11 STA).
+      </t>
+	  
+	  <t>
+Once associated to a given Access Point (AP), the MAC address is used in frame transmission and 
+reception, as one of the addresses used in the address fields of an IEEE 802.11 frame.
+      </t>
+</list></t>
+	  
+	  <t>
+One way to overcome this privacy concern is by using randomly generated MAC addresses. 
+As described in the previous section, the IEEE 802 addressing includes one bit to specify if the 
+hardware address is locally or globally administered. This allows generating local addresses 
+without the need of any global coordination mechanism to ensure that the generated address is unique.
+This feature can be used to generate random addresses <xref target="enhancing_location_privacy" />, and therefore makes it more difficult 
+to track a user device from its MAC/L2 address. 
+      </t>
+
+    </section>
+
+    <section anchor="sec:mac_addr_experiments" title="Experiments at IETF and IEEE 802 meetings">	  
+	  <t>
+In order to test the effects of MAC address randomization, major trials were conducted at the 
+IETF and IEEE 802 meetings between November 2014 and March 2015 - IETF91, IETF92 and IEEE 802 Plenary in Berlin. 
+The purpose of the experiments was to evaluate the use of MAC address randomization from two 
+different perspectives: (i) the effect on the connectivity experience of the end-user, also checking 
+if applications and operating systems (OSs) were affected; and (ii) the potential impact on the 
+network infrastructure itself. Some of the findings were published in <xref target="wifi_internet_privacy" />. 
+      </t>
+
+      <t>
+During the experiments it was observed that the probability of address duplication in a network with this characteristics is negligible. 
+The experiments also showed that other protocol identifiers can be correlated and therefore be used to still track an individual. Hence, 
+effective privacy tools should not work in isolation at a single layer, but they should be coordinated with other privacy features at higher layers. 
+Since then, the MAC address randomization feature has been used every time by more devices and operating systems [REF??]. 	  
+	  </t>
+
+	  
+    </section>
+<!-- END L2 address randomization -->
+
+<!-- BEGIN Tools -->
+    <section anchor="sec:mac_rnd_at_ieee802" title="MAC randomization-related activities at the IEEE 802">
+
+      <t>
+(From IEEE 802.11aq...)
+      </t>
+
+    </section>
+<!-- END Tools -->
+
+<!-- BEGIN Evaluation -->
+    <section anchor="sec:mac_rnd_at_ietf" title="MAC randomization-related activities at the IETF">
+
+      <t>
+TBD.
+      </t>
+
+    </section>
+<!-- END Evaluation -->
+
+
+    <section anchor="IANA" title="IANA Considerations">
+
+      <t>
+N/A.
+      </t>
+
+    </section>
+
+
+    <section anchor="Security" title="Security Considerations">
+
+      <t>
+TBD.
+      </t>
+
+    </section>
+
+    <section anchor="Acknowledgments" title="Acknowledgments">
+
+      <t>
+TBD.
+      </t>
+
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Normative References">
+      &rfc2119;
+    </references>
+
+    <references title="Informative References">
+
+      <reference anchor="wifi_internet_privacy" >
+        <front>
+          <title>Wi-Fi Internet Connectivity and Privacy: Hiding your tracks on the wireless Internet</title>
+          <author initials="CJ." surname="Bernardos" fullname="Carlos J. Bernardos">
+          </author>
+          <author initials="JC." surname="Zúñiga" fullname="Juan C. Zúñiga">
+          </author>
+          <author initials="P." surname="O'Hanlon" fullname="Piers O'Hanlon">
+          </author>
+          <date month="October" year="2015"/>
+        </front>
+        <seriesInfo name="Standards for Communications and Networking (CSCN), 2015 IEEE Conference on" value="" />
+      </reference>
+	  
+      <reference anchor="link_layer_privacy" >
+        <front>
+          <title>Privacy at the link layer</title>
+           <author initials="P." surname="O'Hanlon" fullname="Piers O'Hanlon">
+          </author>
+		  <author initials="J." surname="Wright" fullname="J. Wright">
+          </author>
+          <author initials="I." surname="Brown" fullname="Ian Brown">
+          </author>
+          <date month="February" year="2014"/>
+        </front>
+        <seriesInfo name="Contribution at W3C/IAB workshop on Strengthening the Internet Against Pervasive Monitoring (STRINT)" value="" />
+      </reference> 
+	  
+
+      <reference anchor="enhancing_location_privacy" >
+        <front>
+          <title>Enhancing location privacy in wireless LAN through disposable interface identifiers: a quantitative analysis</title>
+           <author initials="M." surname="Gruteser" fullname="M. Gruteser">
+          </author>
+		  <author initials="D." surname="Grunwald" fullname="D. Grunwald">
+          </author>
+          <date month="" year="2005"/>
+        </front>
+        <seriesInfo name="Mobile Networks and Applications, vol. 10, no. 3, pp. 315–325" value="" />
+      </reference> 
+
+
+    </references>
+
+  </back>
+
+</rfc>
