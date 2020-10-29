@@ -267,7 +267,8 @@ network infrastructure itself. Some of the findings were published in <xref targ
 During the experiments it was observed that the probability of address duplication in a network with this characteristics is negligible. 
 The experiments also showed that other protocol identifiers can be correlated and therefore be used to still track an individual. Hence, 
 effective privacy tools should not work in isolation at a single layer, but they should be coordinated with other privacy features at higher layers. 
-Since then, the MAC address randomization feature has been used every time by more devices and operating systems [REF??]. 	  
+Since then, the MAC address randomization feature has been used every time by more devices and operating systems <xref target="ios_link" />, 
+<xref target="windows_link" />, <xref target="android_link" />. 	  
 	  </t>
 
 	  
@@ -460,7 +461,36 @@ TBD.
         </front>
         <seriesInfo name="Mobile Networks and Applications, vol. 10, no. 3, pp. 315–325" value="" />
       </reference> 
-
+	    
+      <reference anchor="ios_link" target="https://support.apple.com/en-us/HT211227">
+  	<front>
+    		<title>Use private Wi-Fi addresses in iOS 14, iPadOS 14, and watchOS 7</title>
+    		<author initials="" surname="Apple" fullname="Apple">
+      			<organization></organization>
+    		</author>
+    		<date />
+  	</front>
+      </reference>
+	    
+      <reference anchor="android_link" target="https://source.android.com/devices/tech/connect/wifi-mac-randomization">
+  	<front>
+    		<title>Android Privacy: MAC Randomization</title>
+    		<author initials="" surname="Google/Open Handset Alliance" fullname="Google/Open Handset Alliance">
+      			<organization></organization>
+    		</author>
+    		<date />
+  	</front>
+      </reference>
+	    
+      <reference anchor="windows_link" target="https://support.microsoft.com/en-us/windows/how-to-use-random-hardware-addresses-ac58de34-35fc-31ff-c650-823fc48eb1bc">
+  	<front>
+    		<title>Windows: How to use random hardware addresses</title>
+    		<author initials="" surname="Microsoft" fullname="Microsoft">
+      			<organization></organization>
+    		</author>
+    		<date />
+  	</front>
+      </reference>
 
     </references>
 
