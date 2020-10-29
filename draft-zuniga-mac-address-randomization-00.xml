@@ -3,6 +3,13 @@
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
 
   <!ENTITY rfc2119 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
+  <!ENTITY rfc4862 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4862.xml'>
+  <!ENTITY rfc4191 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4191.xml'>
+  <!ENTITY rfc7217 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7217.xml'>
+  <!ENTITY I-D.gont-6man-deprecate-eui64-based-addresses SYSTEM 'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.gont-6man-deprecate-eui64-based-addresses.xml'>
+  <!ENTITY I-D.ietf-dhc-mac-assign SYSTEM 'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-dhc-mac-assign.xml'>
+  <!ENTITY I-D.ietf-dhc-slap-quadrant SYSTEM 'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-dhc-slap-quadrant.xml'>
+  <!ENTITY rfc7844 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7844.xml'>
 
 ]>
 
@@ -281,7 +288,89 @@ Since then, the MAC address randomization feature has been used every time by mo
     <section anchor="sec:mac_rnd_at_ietf" title="MAC randomization-related activities at the IETF">
 
       <t>
-TBD.
+Several IP address assignment mechanisms such as the IPv6 stateless
+autoconfiguration techniques (SLAAC) <xref target="RFC4862" /> generate the
+Interface Identifier (IID) of the address from its MAC address (via EUI64),
+which then becomes visible to all IPv6 communication peers. This potentially
+allows for global tracking of a device at L3 from any point on the Internet.
+Besides, the prefix part of the address provides meaningful insights of the
+physical location of the device in general, which together with the MAC
+address-based IID, makes it easier to perform global device tracking.
+      </t>
+
+      <t>
+There are some solutions that might mitigate this privacy threat, such as the
+use of temporary addresses <xref target="RFC4191" />, the use of opaque IIDs
+<xref target="RFC7217" />, <xref
+target="I-D.gont-6man-deprecate-eui64-based-addresses" />. Next, we briefly
+describe how these solutions work.
+      </t>
+
+      <t>
+<xref target="RFC4191" /> identifies and describes the privacy issues associated
+with embedding MAC stable addressing information into the IPv6 addresses (as
+part of the IID) and describes some mechanisms to mitigate the associated
+problems. The specification is meant for IPv6 nodes that auto-configure IPv6
+addresses based on the MAC address (EUI-64 mechanism). It defines how to create
+additional addresses (generally known as "temporary addresses") based on a
+random interface identifier for the purpose of initiating outgoing sessions.
+These "random" or temporary addresses are meant to be used for a short period of
+time (hours to days) and would then be deprecated. Deprecated addresses can
+continue to be used for already established connections, but are not used to
+initiate new connections. New temporary addresses are generated periodically to
+replace temporary addresses that expire. In order to do so, a node produces a
+sequence of temporary global scope addresses from a sequence of interface
+identifiers that appear to be random in the sense that it is difficult for an
+outside observer to predict a future address (or identifier) based on a current
+one, and it is difficult to determine previous addresses (or identifiers)
+knowing only the present one. The main problem with the temporary addresses is
+that they should not be used by applications that listen for incoming
+connections (as these are supposed to be waiting on permanent/well-known
+identifiers). Besides, if a node changes network and comes back to a previously
+visited one, the temporary addresses that the node would use will be different,
+and this might be an issue in certain networks where addresses are used for
+operational purposes (e.g., filtering or authentication). <xref target="RFC7217"
+/>, summarized next, partially addresses the problems aforementioned.
+      </t>
+
+      <t>
+<xref target="RFC7217"/> defines a method for generating IPv6 IIDs to be used
+with IPv6 Stateless Address Autoconfiguration (SLAAC), such that an IPv6 address
+configured using this method is stable within each subnet, but the corresponding
+IID changes when the host moves from one network to another. This method is
+meant to be an alternative to generating Interface Identifiers based on MAC
+addresses, such that the benefits of stable addresses can be achieved without
+sacrificing the security and privacy of users. The method defined to generate
+the IPv6 IID is based on computing a hash function which takes as input
+information that is stable and associated to the interface (e.g., MAC address or
+local interface identifier), stable information associated to the visited
+network (e.g., IEEE 802.11 SSID), the IPv6 prefix, and a secret key, plus some
+other additional information. This basically ensures that a different IID is
+generated when any of the input fields changes (such as the network or the
+prefix), but that the IID is the same within each subnet.
+      </t>
+
+      <t>
+In addition to the former documents, <xref target="I-D.ietf-dhc-mac-assign" />
+proposes an extension to DHCPv6 that allows a scalable approach to link-layer
+address assignments where preassigned link-layer address assignments (such as by
+a manufacturer) are not possible or unnecessary. <xref
+target="I-D.ietf-dhc-slap-quadrant" /> proposes extensions to DHCPv6 protocols
+to enable a DHCPv6 client or a DHCPv6 relay to indicate a preferred SLAP
+quadrant to the server, so that the server may allocate MAC addresses in the
+quadrant requested by the relay or client.
+      </t>
+
+      <t>
+Not only MAC and IP addresses can be used for tracking purposes. Some DHCP
+options carry unique identifiers. These identifiers can enable device tracking
+even if the device administrator takes care of randomizing other potential
+identifications like link-layer addresses or IPv6 addresses. <xref
+target="RFC7844" /> introduces anonymity profiles, designed for clients that
+wish to remain anonymous to the visited network. The profiles provide guidelines
+on the composition of DHCP or DHCPv6 messages, designed to minimize disclosure
+of identifying information. <xref target="RFC7844" /> also indicates that the
+link-layer address, IP address, and DHCP identifier shall evolve in synchrony.
       </t>
 
     </section>
@@ -322,6 +411,14 @@ TBD.
     </references>
 
     <references title="Informative References">
+
+      &rfc4862;
+      &rfc4191;
+      &rfc7217;
+      &I-D.gont-6man-deprecate-eui64-based-addresses;
+      &I-D.ietf-dhc-mac-assign;
+      &I-D.ietf-dhc-slap-quadrant;
+      &rfc7844;
 
       <reference anchor="wifi_internet_privacy" >
         <front>
